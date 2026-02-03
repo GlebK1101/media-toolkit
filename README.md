@@ -44,7 +44,7 @@ folder/
 │   └── main.py                # ENTRY POINT: Initialization and startup
 │
 ├── requirements.txt           # List of Python dependencies
-└── README.md                  # Documentation
+└── README.md                  
 ```
 
 ## Features and Module Specifics
