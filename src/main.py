@@ -20,7 +20,7 @@ class YouTubeDownloaderApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Media Toolkit")
-        self.geometry("850x900")
+        self.geometry("1050x900")
         
         # Применяем тему
         AppTheme.apply_theme(self)
