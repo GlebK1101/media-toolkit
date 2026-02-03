@@ -22,18 +22,15 @@ class YouTubeDownloaderApp(tk.Tk):
         self.title("Media Toolkit")
         self.geometry("1050x900")
         
-        # Применяем тему
         AppTheme.apply_theme(self)
 
-        # Создаем контейнер вкладок
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(fill="both", expand=True, padx=5, pady=5)
 
-        # Инициализируем вкладки
-        self.tabs = {} # Храним ссылки на объекты вкладок
+
+        self.tabs = {} 
         self.init_tabs()
 
-        # Запускаем проверки при старте (в фоне, чтобы не морозить окно)
         self.run_startup_checks()
 
     def init_tabs(self):
