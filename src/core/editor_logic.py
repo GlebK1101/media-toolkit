@@ -70,17 +70,14 @@ class EditorLogic:
 
     def start_preview(self, input_path, start, end, volume=1.0, loop=False):
         self.stop_preview()
-        cmd = [self.ffplay_path, "-nodisp", "-autoexit", "-hide_banner"]
-        cmd.extend(["-ss", str(start)])
+        cmd = [self.ffplay_path, "-nodisp", "-vn", "-autoexit", "-hide_banner"]
         
-        filters = []
+        filters = [f"atrim=start={start}:end={end},asetpts=PTS-STARTPTS"]
         if abs(volume - 1.0) > 0.01: filters.append(f"volume={volume}")
         if filters: cmd.extend(["-af", ",".join(filters)])
             
         if loop: cmd.extend(["-loop", "0"])
             
-        duration = end - start
-        if duration > 0: cmd.extend(["-t", str(duration)])
         cmd.append(input_path)
         
         try:
