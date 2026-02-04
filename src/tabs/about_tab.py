@@ -40,7 +40,7 @@ class AboutTab(BaseTab):
         
         # Название и Версия
         ttk.Label(info_frame, text="Media Toolkit", font=("Segoe UI", 20, "bold"), foreground="#0078d7").pack(anchor="w")
-        ver_str = f"Version 1.0.0 | {datetime.now().strftime('%d.%m.%Y')}"
+        ver_str = f"Version 1.0.1 | 04.02.2026"
         ttk.Label(info_frame, text=ver_str, font=("Segoe UI", 10), foreground="#666666").pack(anchor="w")
 
         # Правая часть хедера (Python version + GitHub btn)
