@@ -298,7 +298,13 @@ class EditorTab(BaseTab):
         avail = w - (self.side_margin * 2)
         if avail <= 0: avail = 100
         
-        self.zoom_level = avail / dur
+        is_okay = False
+        if dur > 0:
+            is_okay = True
+            self.zoom_level = avail / dur
+        else:
+            self.zoom_level = 1.0 # Дефолтное значение, если аудио не найдено
+            self.log("⚠️ Warning: Audio track length is 0 or could not be processed (more than one audio stream?).")
         self.view_offset_x = -self.side_margin
         
         dir_name = os.path.dirname(self.current_file)
@@ -312,7 +318,10 @@ class EditorTab(BaseTab):
         
         self._update_info()
         self._draw()
-        self.log(f"Loaded: {base} ({self._format_time(dur)})")
+        if is_okay:
+            self.log(f"Loaded: {base} ({self._format_time(dur)})")
+        else:
+            self.log(f"⚠️ Unable to load.")
 
     # ================= LOGIC: DRAWING =================
     def _time_to_x(self, t):
