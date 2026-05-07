@@ -213,8 +213,16 @@ class DownloadLogic:
             
             if self.keep_sound:
                 if video_ext == 'mp4':
-                    ydl_opts['format'] = f"{video_rule}+bestaudio[ext=m4a]/bestaudio/best"
+                    ydl_opts['format'] = f"{video_rule}+bestaudio[ext=m4a]/{video_rule}+bestaudio/best"
                     ydl_opts['merge_output_format'] = 'mp4'
+                elif video_ext == 'webm':
+                    # пытаемся найти webm-дорожки и если их нет, берем лучшие доступные
+                    ydl_opts['format'] = f"{video_rule}[ext=webm]+bestaudio[ext=webm]/{video_rule}+bestaudio/best"
+                    # сливаем в контейнер MKV, чтобы избежать краша
+                    ydl_opts['merge_output_format'] = 'mkv'
+                    # корректно конвертируем итог в webm
+                    ydl_opts['postprocessors'] =[{'key': 'FFmpegVideoConvertor', 'preferedformat': 'webm'}]
+                    # это будет реально долго, но хоть как то.
                 else:
                     ydl_opts['format'] = f"{video_rule}+bestaudio/best"
                     ydl_opts['merge_output_format'] = video_ext
@@ -365,7 +373,13 @@ class DownloadLogic:
             else:
                 self.log(f"❌ Error: {str(ve)}")
                 self.log("-"*80, replace=False)
-
+        
+        except yt_dlp.utils.DownloadError:
+            if ydl:
+                del ydl
+            gc.collect()
+            self._cleanup_files()
+        
         except Exception as e:
             self.log(f"❌ Error: {str(e)}")
             self.log("-"*80, replace=False)

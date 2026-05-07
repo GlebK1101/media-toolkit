@@ -65,12 +65,12 @@ class DownloaderTab(BaseTab):
         ttk.Label(options_frame, text="Vid Ext:").pack(side="left", padx=(15, 0))
         self.vid_ext_var = tk.StringVar(value="mp4")
         v_exts = ["mp4", "mkv", "webm"]
-        ttk.Combobox(options_frame, textvariable=self.vid_ext_var, values=v_exts, width=5, state="readonly").pack(side="left", padx=5)
+        ttk.Combobox(options_frame, textvariable=self.vid_ext_var, values=v_exts, width=7, state="readonly").pack(side="left", padx=5)
 
         ttk.Label(options_frame, text="Aud Ext:").pack(side="left", padx=(15, 0))
         self.aud_ext_var = tk.StringVar(value="mp3")
         a_exts = ["mp3", "m4a", "wav", "flac"]
-        ttk.Combobox(options_frame, textvariable=self.aud_ext_var, values=a_exts, width=5, state="readonly").pack(side="left", padx=5)
+        ttk.Combobox(options_frame, textvariable=self.aud_ext_var, values=a_exts, width=7, state="readonly").pack(side="left", padx=5)
 
         # 5. Checkboxes (Sound + Overwrite)
         checks_frame = ttk.Frame(options_frame)
