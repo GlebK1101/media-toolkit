@@ -1,0 +1,2 @@
+# Netscape HTTP Cookie File
+.x.com	TRUE	/	TRUE	0	auth_token	YOUR_TOKEN

@@ -168,6 +168,11 @@ class DownloadLogic:
             match = re.search(pattern, url)
             if match:
                 return f"Video_{match.group(1)}"
+            
+        twitter_pattern = r'(?:twitter\.com|x\.com)/[^/]+/status/(\d+)'
+        match = re.search(twitter_pattern, url)
+        if match:
+            return f"X_Video_{match.group(1)}"
         
         # Метод 2: Последняя часть URL
         try:
@@ -191,7 +196,8 @@ class DownloadLogic:
             'logger': YtLogger(self.log, self._notify_stop),
             'overwrites': overwrite,     
             'force_overwrites': overwrite,
-            'outtmpl': f"{filename}.%(ext)s" if filename else "%(title)s.%(ext)s"
+            'outtmpl': f"{filename}.%(ext)s" if filename else "%(title)s.%(ext)s",
+            'cookiefile': ('cookies.txt') 
         }
 
         if self.mode == 'audio':
@@ -237,6 +243,12 @@ class DownloadLogic:
         self.skip_remaining = False
         
         url = params['url']
+        
+        if "x.com/" in url or "twitter.com/" in url:
+            url = url.replace("x.com/", "twitter.com/") 
+            if "?" in url:
+                url = url.split("?")[0]
+        
         save_path = params['path'] or os.path.join(os.getcwd(), "_output\\downloads")
         filename = params['filename']
         quality = params['quality']

@@ -43,6 +43,7 @@ folder/
 │   │
 │   └── main.py                # ENTRY POINT: Initialization and startup
 │
+├── cookies.txt                # Cookies of X (for downloading adult content)
 ├── requirements.txt           # List of Python dependencies
 └── README.md                  
 ```
@@ -59,6 +60,16 @@ Attention to detail:
 *   **File Check:** If a file with the same name already exists in the destination folder, the download will be skipped (unless the overwrite option is explicitly enabled) to save your time and bandwidth.
 *   **Auto-Update:** On every startup, the program quietly checks for a fresh version of `yt-dlp` and updates it, so you don't have to worry about YouTube algorithm changes.
 *   **Cancel Button:** Pressing this cancels all download processes and deletes temporary files. (A file ending in `f616.[format].part` sometimes refuses to be deleted. This isn't a problem. In this case, simply close the program and delete the file manually).
+
+*   **Downloading 18+ Content from X (Twitter):** To download age-restricted videos from X (formerly Twitter), the program requires your authentication token. You need to provide it via a `cookies.txt` file located in the root directory of the application (alongside `README.md`, `requirements.txt`, etc.).
+    **How to get the token:**
+    1. Open X (Twitter) in your browser and log in.
+    2. Press `F12` (or go to the browser menu: More tools -> Developer tools).
+    3. In the developer tools panel, navigate to the **Application** tab at the top (if it's not visible, click the `>>` icon).
+    4. In the left sidebar, find the **Storage** section, expand **Cookies**, and click on `https://x.com`.
+    5. In the table on the right, look for the row where the **Name** column is `auth_token`.
+    6. Copy the value of this token and paste it into the `cookies.txt` template, replacing `YOUR_TOKEN`.
+    *Note: The first time you try to download, it might throw a minor error while the cookie file is being initialized/read, but subsequent downloads will work flawlessly.*
 
 ### 2. Converter
 A tool for changing containers and codecs. It supports both single file operations and Batch folder processing.
