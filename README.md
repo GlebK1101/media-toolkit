@@ -21,6 +21,7 @@ folder/
 │   │   ├── __init__.py
 │   │   ├── compressor_logic.py # Compression logic (CRF control, resolution)
 │   │   ├── converter_logic.py  # Conversion logic (Smart Stream Copy)
+│   │   ├── database_logic.py   # SQLite dynamic metadata logging logic
 │   │   ├── downloader_logic.py # yt-dlp wrapper with progress hooks
 │   │   ├── editor_logic.py     # Waveform processing, trimming, and preview
 │   │   └── merger_logic.py     # Merging logic (concat demuxer / filter complex)
@@ -31,6 +32,7 @@ folder/
 │   │   ├── about_tab.py        # In-app documentation
 │   │   ├── compressor_tab.py   # Compression UI (Single/Batch)
 │   │   ├── converter_tab.py    # Conversion UI (Single/Batch)
+│   │   ├── database_tab.py     # Database UI (Customizable metadata logger)
 │   │   ├── downloader_tab.py   # Downloader UI
 │   │   ├── editor_tab.py       # Visual editor (Timeline, Canvas)
 │   │   └── merger_tab.py       # Queue manager for file merging
@@ -100,6 +102,16 @@ A tool for joining multiple files into one long track. Works with both video and
 *   **File Queue:** A convenient list where you can reorder clips.
 *   **Smart Fitting:** If you try to merge videos of different sizes (e.g., 1080p and 720p (You can add other permissions in the code if necessary)), the program automatically brings them to a common denominator, adding black bars (padding) where necessary so the final video doesn't "jump".
 *   **Audio Background:** When merging audio files, you can add a static image to create a video file output.
+
+### 6. Database (SQLite Metadata Logging)
+An optional tab designed specifically for cataloging your YouTube downloads. Once enabled, the program will extract metadata from the downloaded video and automatically insert it into an `.db` SQLite file.
+
+*   **Dynamic Data Selection:** Choose exactly what you want to save. Available fields include Video Title, Direct Channel URL, Views, Likes, Tags, Input Filename, Final File Size, and Absolute/Relative paths to the downloaded file.
+*   **Custom Column Ordering:** Rearrange the layout of the database dynamically right from the UI. If you add a new checkbox to an existing database, the tool will execute an `ALTER TABLE` automatically without breaking your existing data.
+*   **Protection & Safety:**
+    *   **Duplicate Preventer:** A toggle that prevents the database from logging the same `video_url` twice.
+    *   **Auto-Backups:** The moment it writes the first log of the day, it creates a copy of your database in a `backups/` folder.
+*   **Database Management:** We highly recommend viewing and managing the generated `.db` files using the free and open-source **[DB Browser for SQLite](https://sqlitebrowser.org/dl/)** ([GitHub Link](https://github.com/sqlitebrowser/sqlitebrowser)).
 
 ---
 

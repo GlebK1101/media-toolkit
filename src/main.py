@@ -10,6 +10,7 @@ from utils.updater import update_yt_dlp
 
 # Импорты вкладок
 from tabs.downloader_tab import DownloaderTab
+from tabs.database_tab import DatabaseTab
 from tabs.converter_tab import ConverterTab
 from tabs.compressor_tab import CompressorTab
 from tabs.editor_tab import EditorTab
@@ -36,6 +37,9 @@ class YouTubeDownloaderApp(tk.Tk):
     def init_tabs(self):
         self.tabs['downloader'] = DownloaderTab(self.notebook)
         self.notebook.add(self.tabs['downloader'], text="  Downloader  ")
+        
+        self.tabs['database'] = DatabaseTab(self.notebook)            
+        self.notebook.add(self.tabs['database'], text="  Database  ")
         
         self.tabs['converter'] = ConverterTab(self.notebook)
         self.notebook.add(self.tabs['converter'], text="  Converter  ")

@@ -333,6 +333,8 @@ class DownloadLogic:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 try:
                     info = ydl.extract_info(url, download=True)
+                    from core.database_logic import DatabaseLogic
+                    DatabaseLogic.save_metadata(info, url, params, self.log)
                 except yt_dlp.utils.DownloadError as e:
                     if self.skip_remaining or "already exists" in str(e): 
                         return 
